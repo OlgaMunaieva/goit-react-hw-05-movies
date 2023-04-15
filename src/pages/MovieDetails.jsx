@@ -45,6 +45,7 @@ const MovieDetails = () => {
 
   return (
     <>
+      <button>Go back</button>
       {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
       <img
