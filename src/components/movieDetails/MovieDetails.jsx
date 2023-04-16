@@ -1,5 +1,6 @@
 import Loader from 'components/loader/Loader';
 import { Text } from 'components/text/Text.components';
+import { Suspense, useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import fetchMovie from 'services/fetchMovie';
@@ -11,6 +12,8 @@ const MovieDetails = () => {
   const [error, setError] = useState('');
 
   const location = useLocation();
+  const backLinkLocation = useRef(location.state?.from ?? `/movies`);
+
   console.log(location);
 
   useEffect(() => {
@@ -46,7 +49,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <Link to={location.state.from}>Go back</Link>
+      <Link to={backLinkLocation.current}>Go back</Link>
       {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
       <img
@@ -74,7 +77,9 @@ const MovieDetails = () => {
           </li>
         </ul>
       </div>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
