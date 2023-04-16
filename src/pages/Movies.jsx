@@ -14,22 +14,46 @@ const Movies = () => {
 
   useEffect(() => {
     if (!query) return;
-
-    setIsLoading(true);
-    fetchSearch(query)
-      .then(data => {
-        if (!data.total_results) {
-          throw new Error('No Data');
-        }
-        setMovies(data.results);
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => setIsLoading(false));
+    uploadMovies(query);
   }, [query]);
 
-  const getSearchQuery = queryOnChange => {
+  async function uploadMovies(query) {
+    console.log('after useEffect', query);
+    setIsLoading(true);
+    try {
+      const data = await fetchSearch(query);
+      console.log(data);
+      const movies = data.results;
+      console.log(movies);
+      if (!data.total_results) {
+        throw new Error('No data');
+      } else {
+        setMovies(movies);
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  // useEffect(() => {
+  //   if (!query) return;
+
+  //   setIsLoading(true);
+  //   fetchSearch(query)
+  //     .then(data => {
+  //       if (!data.total_results) {
+  //         throw new Error('No Data');
+  //       }
+  //       setMovies(data.results);
+  //     })
+  //     .catch(error => {
+  //       setError(error.message);
+  //     })
+  //     .finally(() => setIsLoading(false));
+  // }, [query]);
+
+  const handleQuery = queryOnChange => {
     if (query !== queryOnChange) {
       setQuery(queryOnChange);
       setMovies([]);
@@ -41,19 +65,22 @@ const Movies = () => {
     setQueryOnChange(value);
   };
 
-  const setForm = ({ value }) => {
+  const handleForm = ({ value }) => {
     value = queryOnChange;
     setQueryOnChange(value);
   };
 
   const handleOnSubmit = event => {
+    console.log('submit', event.target.elements.search.value);
     event.preventDefault();
-    setQueryOnChange(event.target.value);
-    getSearchQuery(query);
-    setForm(event.target);
+    // setQueryOnChange(event.target.elements.search.value);
+    handleQuery(event.target.elements.search.value);
+    handleForm(event.target);
   };
 
-  console.log(movies);
+  console.log('movies', movies);
+  console.log('queryOnChange', queryOnChange);
+  console.log('query', query);
 
   return (
     <>
@@ -63,6 +90,7 @@ const Movies = () => {
         <input
           className="SearchForm-input"
           onChange={handleChange}
+          name="search"
           value={queryOnChange}
           type="search"
           autoComplete="off"
@@ -73,11 +101,15 @@ const Movies = () => {
           <FiSearch />
         </button>
       </form>
-      {['dog-1', 'dog-2', 'dog-3', 'dog-4', 'dog-5'].map(dog => (
-        <Link key={dog} to={`${dog}`}>
-          {dog}
-        </Link>
-      ))}
+      <ul>
+        {movies.map(({ id, title }) => (
+          <li key={id}>
+            <Link key={id} to={`${id}`}>
+              {title}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
