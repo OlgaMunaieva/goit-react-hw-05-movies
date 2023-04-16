@@ -6,14 +6,13 @@ import fetchSearch from 'services/fetchSearch';
 const { Link, useSearchParams } = require('react-router-dom');
 
 const Movies = () => {
-  const [queryOnChange, setQueryOnChange] = useState('');
-  const [movies, setMovies] = useState([]);
-  // const [query, setQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
+
+  const [queryOnChange, setQueryOnChange] = useState(query || '');
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!query) return;
@@ -21,13 +20,10 @@ const Movies = () => {
   }, [query]);
 
   async function uploadMovies(query) {
-    console.log('after useEffect', query);
     setIsLoading(true);
     try {
       const data = await fetchSearch(query);
-      console.log(data);
       const movies = data.results;
-      console.log(movies);
       if (!data.total_results) {
         throw new Error('No data');
       } else {
@@ -40,14 +36,6 @@ const Movies = () => {
     }
   }
 
-  // const handleQuery = queryOnChange => {
-  //   if (query !== queryOnChange) {
-  //     setQuery(queryOnChange);
-  //     setMovies([]);
-  //     // setPage(1);
-  //   }
-  // };
-
   const handleChange = ({ target: { value } }) => {
     setQueryOnChange(value);
   };
@@ -58,17 +46,13 @@ const Movies = () => {
   };
 
   const handleOnSubmit = event => {
-    console.log('submit', event.target.elements.search.value);
     event.preventDefault();
-    // setQueryOnChange(event.target.elements.search.value);
-    setSearchParams({ query: event.target.elements.search.value });
-    // handleQuery(event.target.elements.search.value);
+    !event.target.elements.search.value
+      ? setSearchParams({})
+      : setSearchParams({ query: event.target.elements.search.value });
+
     handleForm(event.target);
   };
-
-  console.log('movies', movies);
-  console.log('queryOnChange', queryOnChange);
-  console.log('query', query);
 
   return (
     <>

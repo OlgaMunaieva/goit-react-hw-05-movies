@@ -15,13 +15,10 @@ const Review = () => {
   }, [movieId]);
 
   async function uploadReview(movieId) {
-    console.log(movieId);
     setIsLoading(true);
     try {
       const data = await fetchReview(movieId);
-      console.log(data);
       const reviews = data.results;
-      console.log(reviews);
       if (!reviews.length) {
         throw new Error(`We don't have any reviews for this movie.`);
       } else {
@@ -33,7 +30,7 @@ const Review = () => {
       setIsLoading(false);
     }
   }
-  console.log(reviews);
+
   return (
     <div>
       {isLoading && <Loader />}

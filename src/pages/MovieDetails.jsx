@@ -15,11 +15,9 @@ const MovieDetails = () => {
   }, [movieId]);
 
   async function uploadMovie(movieId) {
-    console.log(movieId);
     setIsLoading(true);
     try {
       const movie = await fetchMovie(movieId);
-      console.log(movie);
       if (!movie) {
         throw new Error('No data');
       } else {
