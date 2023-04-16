@@ -36,22 +36,6 @@ const Movies = () => {
       setIsLoading(false);
     }
   }
-  // useEffect(() => {
-  //   if (!query) return;
-
-  //   setIsLoading(true);
-  //   fetchSearch(query)
-  //     .then(data => {
-  //       if (!data.total_results) {
-  //         throw new Error('No Data');
-  //       }
-  //       setMovies(data.results);
-  //     })
-  //     .catch(error => {
-  //       setError(error.message);
-  //     })
-  //     .finally(() => setIsLoading(false));
-  // }, [query]);
 
   const handleQuery = queryOnChange => {
     if (query !== queryOnChange) {
