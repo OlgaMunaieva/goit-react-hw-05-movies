@@ -3,14 +3,17 @@ import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import fetchSearch from 'services/fetchSearch';
-const { Link } = require('react-router-dom');
+const { Link, useSearchParams } = require('react-router-dom');
 
 const Movies = () => {
   const [queryOnChange, setQueryOnChange] = useState('');
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
+  // const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
   useEffect(() => {
     if (!query) return;
@@ -37,13 +40,13 @@ const Movies = () => {
     }
   }
 
-  const handleQuery = queryOnChange => {
-    if (query !== queryOnChange) {
-      setQuery(queryOnChange);
-      setMovies([]);
-      // setPage(1);
-    }
-  };
+  // const handleQuery = queryOnChange => {
+  //   if (query !== queryOnChange) {
+  //     setQuery(queryOnChange);
+  //     setMovies([]);
+  //     // setPage(1);
+  //   }
+  // };
 
   const handleChange = ({ target: { value } }) => {
     setQueryOnChange(value);
@@ -58,7 +61,8 @@ const Movies = () => {
     console.log('submit', event.target.elements.search.value);
     event.preventDefault();
     // setQueryOnChange(event.target.elements.search.value);
-    handleQuery(event.target.elements.search.value);
+    setSearchParams({ query: event.target.elements.search.value });
+    // handleQuery(event.target.elements.search.value);
     handleForm(event.target);
   };
 
