@@ -3,16 +3,19 @@ import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import fetchSearch from 'services/fetchSearch';
-const { Link, useSearchParams } = require('react-router-dom');
+const { Link, useSearchParams, useLocation } = require('react-router-dom');
 
 const Movies = () => {
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query');
+  const query = searchParams.get('query') ?? '';
 
-  const [queryOnChange, setQueryOnChange] = useState(query || '');
+  const [queryOnChange, setQueryOnChange] = useState(query);
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  console.log(location);
 
   useEffect(() => {
     if (!query) return;
@@ -47,9 +50,13 @@ const Movies = () => {
 
   const handleOnSubmit = event => {
     event.preventDefault();
-    !event.target.elements.search.value
-      ? setSearchParams({})
-      : setSearchParams({ query: event.target.elements.search.value });
+    const inputValue = event.target.elements.search.value;
+    if (!inputValue) {
+      setSearchParams({});
+      setMovies([]);
+    } else {
+      setSearchParams({ query: inputValue });
+    }
 
     handleForm(event.target);
   };
@@ -76,7 +83,7 @@ const Movies = () => {
       <ul>
         {movies.map(({ id, title }) => (
           <li key={id}>
-            <Link key={id} to={`${id}`}>
+            <Link state={{ from: location }} to={`${id}`}>
               {title}
             </Link>
           </li>

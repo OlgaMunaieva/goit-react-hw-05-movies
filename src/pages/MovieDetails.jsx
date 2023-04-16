@@ -1,7 +1,7 @@
 import Loader from 'components/loader/Loader';
 import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import fetchMovie from 'services/fetchMovie';
 
 const MovieDetails = () => {
@@ -9,6 +9,9 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     uploadMovie(movieId);
@@ -43,7 +46,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <button>Go back</button>
+      <Link to={location.state.from}>Go back</Link>
       {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
       <img
