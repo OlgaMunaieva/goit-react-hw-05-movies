@@ -15,8 +15,6 @@ const Movies = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  console.log(location);
-
   useEffect(() => {
     if (!query) return;
     uploadMovies(query);
@@ -43,11 +41,6 @@ const Movies = () => {
     setQueryOnChange(value);
   };
 
-  const handleForm = ({ value }) => {
-    value = queryOnChange;
-    setQueryOnChange(value);
-  };
-
   const handleOnSubmit = event => {
     event.preventDefault();
     const inputValue = event.target.elements.search.value;
@@ -57,13 +50,10 @@ const Movies = () => {
     } else {
       setSearchParams({ query: inputValue });
     }
-
-    handleForm(event.target);
   };
 
   return (
     <>
-      {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
       <form className="SearchForm" onSubmit={handleOnSubmit}>
         <input
@@ -80,6 +70,7 @@ const Movies = () => {
           <FiSearch />
         </button>
       </form>
+      {isLoading && <Loader />}
       <ul>
         {movies.map(({ id, title }) => (
           <li key={id}>

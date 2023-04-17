@@ -3,6 +3,7 @@ import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import fetchTrendMovies from 'services/fetchTrends';
+import { TrendMovieItem } from './Home.styled';
 
 const Home = () => {
   const [trendMovies, setTrendMovies] = useState([]);
@@ -39,11 +40,11 @@ const Home = () => {
       {error && <Text>{error} There are not movies</Text>}
       <ul>
         {trendMovies.map(({ title, id }) => (
-          <li key={id}>
+          <TrendMovieItem key={id}>
             <NavLink state={{ from: location }} key={id} to={`/movies/${id}`}>
               {title}
             </NavLink>
-          </li>
+          </TrendMovieItem>
         ))}
       </ul>
     </>

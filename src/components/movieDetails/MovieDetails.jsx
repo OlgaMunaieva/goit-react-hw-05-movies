@@ -4,6 +4,13 @@ import { Suspense, useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import fetchMovie from 'services/fetchMovie';
+import {
+  GenresList,
+  LinkButton,
+  MovieInformation,
+  MovieMoreInformation,
+} from './MovieDetails.styled';
+import { TiArrowBackOutline } from 'react-icons/ti';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -13,8 +20,6 @@ const MovieDetails = () => {
 
   const location = useLocation();
   const backLinkLocation = useRef(location.state?.from ?? `/movies`);
-
-  console.log(location);
 
   useEffect(() => {
     uploadMovie(movieId);
@@ -49,24 +54,31 @@ const MovieDetails = () => {
 
   return (
     <>
-      <Link to={backLinkLocation.current}>Go back</Link>
+      <LinkButton to={backLinkLocation.current}>
+        <TiArrowBackOutline />
+        Go back
+      </LinkButton>
       {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
-      <img
-        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-        alt={original_title}
-      />
-      <h1>
-        {original_title} ({year})
-      </h1>
-      <p>User score: {userScore}%</p>
-      <h2>Overview</h2>
-      <p>{overview}</p>
-      <h3>Genres</h3>
-      <ul>
-        {genres && genres.map(({ name, id }) => <li key={id}>{name}</li>)}
-      </ul>
-      <div>
+      <MovieInformation>
+        <img
+          src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
+          alt={original_title}
+        />
+        <div>
+          <h1>
+            {original_title} ({year})
+          </h1>
+          <p>User score: {userScore}%</p>
+          <h2>Overview</h2>
+          <p>{overview}</p>
+          <h3>Genres</h3>
+          <GenresList>
+            {genres && genres.map(({ name, id }) => <li key={id}>{name}</li>)}
+          </GenresList>
+        </div>
+      </MovieInformation>
+      <MovieMoreInformation>
         <p>Additional information</p>
         <ul>
           <li>
@@ -76,7 +88,7 @@ const MovieDetails = () => {
             <Link to="review">Review</Link>
           </li>
         </ul>
-      </div>
+      </MovieMoreInformation>
       <Suspense>
         <Outlet />
       </Suspense>

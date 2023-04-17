@@ -15,13 +15,10 @@ const Cast = () => {
   }, [movieId]);
 
   async function uploadCast(movieId) {
-    console.log(movieId);
     setIsLoading(true);
     try {
       const credits = await fetchCast(movieId);
-      console.log(credits);
       const cast = credits.cast;
-      console.log(cast);
       if (!cast) {
         throw new Error('No data');
       } else {
@@ -33,7 +30,6 @@ const Cast = () => {
       setIsLoading(false);
     }
   }
-  console.log(cast);
 
   return (
     <>

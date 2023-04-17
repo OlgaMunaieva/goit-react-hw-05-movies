@@ -1,20 +1,21 @@
 import { Suspense } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import { Header, Main, Nav } from './Layout.styled';
 
 const Layout = () => {
   return (
     <div>
-      <header>
-        <nav>
+      <Header>
+        <Nav>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/movies">Movies</NavLink>
-        </nav>
-      </header>
-      <main>
+        </Nav>
+      </Header>
+      <Main>
         <Suspense>
           <Outlet />
         </Suspense>
-      </main>
+      </Main>
     </div>
   );
 };
