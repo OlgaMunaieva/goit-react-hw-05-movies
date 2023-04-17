@@ -18,6 +18,10 @@ const Movies = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    setQueryOnChange(JSON.parse(localStorage.getItem('queryMovies')) ?? '');
+  }, []);
+
+  useEffect(() => {
     if (!query) return;
     uploadMovies(query);
   }, [query]);
@@ -41,6 +45,7 @@ const Movies = () => {
 
   const handleChange = ({ target: { value } }) => {
     setQueryOnChange(value);
+    localStorage.setItem('queryMovies', JSON.stringify(value));
   };
 
   const handleOnSubmit = event => {
