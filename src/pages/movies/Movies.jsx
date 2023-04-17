@@ -55,18 +55,17 @@ const Movies = () => {
   return (
     <>
       {error && <Text>{error} There are not movies</Text>}
-      <form className="SearchForm" onSubmit={handleOnSubmit}>
+      <form onSubmit={handleOnSubmit}>
         <input
-          className="SearchForm-input"
           onChange={handleChange}
           name="search"
           value={queryOnChange}
           type="search"
           autoComplete="off"
           autoFocus
-          placeholder="Search images and photos"
+          placeholder="Search movies"
         />
-        <button type="submit" className="SearchForm-button">
+        <button type="submit">
           <FiSearch />
         </button>
       </form>

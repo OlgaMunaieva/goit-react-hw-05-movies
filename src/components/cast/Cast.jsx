@@ -3,6 +3,7 @@ import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import fetchCast from 'services/fetchCast';
+import { CastItem, CastList } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -35,18 +36,18 @@ const Cast = () => {
     <>
       {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
-      <ul>
+      <CastList>
         {cast.map(({ id, name, character, profile_path }) => (
-          <li key={id}>
+          <CastItem key={id}>
             <img
               src={`https://image.tmdb.org/t/p/w200/${profile_path}`}
               alt={name}
             />
             <p>{name}</p>
             <p>{character}</p>
-          </li>
+          </CastItem>
         ))}
-      </ul>
+      </CastList>
     </>
   );
 };
