@@ -1,5 +1,6 @@
 import Loader from 'components/loader/Loader';
 import { Text } from 'components/text/Text.components';
+import { TrendMovieItem } from 'pages/home/Home.styled';
 import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import fetchSearch from 'services/fetchSearch';
@@ -72,11 +73,11 @@ const Movies = () => {
       {isLoading && <Loader />}
       <ul>
         {movies.map(({ id, title }) => (
-          <li key={id}>
+          <TrendMovieItem key={id}>
             <Link state={{ from: location }} to={`${id}`}>
               {title}
             </Link>
-          </li>
+          </TrendMovieItem>
         ))}
       </ul>
     </>
