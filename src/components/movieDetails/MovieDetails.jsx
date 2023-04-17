@@ -7,7 +7,9 @@ import fetchMovie from 'services/fetchMovie';
 import {
   GenresList,
   LinkButton,
+  MovieImg,
   MovieInformation,
+  MovieInformationText,
   MovieMoreInformation,
 } from './MovieDetails.styled';
 import { TiArrowBackOutline } from 'react-icons/ti';
@@ -61,11 +63,12 @@ const MovieDetails = () => {
       {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
       <MovieInformation>
-        <img
+        <MovieImg
           src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
           alt={original_title}
+          width="300"
         />
-        <div>
+        <MovieInformationText>
           <h1>
             {original_title} ({year})
           </h1>
@@ -76,7 +79,7 @@ const MovieDetails = () => {
           <GenresList>
             {genres && genres.map(({ name, id }) => <li key={id}>{name}</li>)}
           </GenresList>
-        </div>
+        </MovieInformationText>
       </MovieInformation>
       <MovieMoreInformation>
         <p>Additional information</p>

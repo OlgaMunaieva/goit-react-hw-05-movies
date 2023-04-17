@@ -11,8 +11,21 @@ export const LinkButton = styled(Link)`
 `;
 
 export const MovieInformation = styled.div`
-  display: flex;
-  gap: 20px;
+  @media screen and (min-width: 980px) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+`;
+
+export const MovieImg = styled.img`
+  width: 300px;
+`;
+
+export const MovieInformationText = styled.div`
+  @media screen and (min-width: 980px) {
+    width: calc(100% - 300px - 20px);
+  }
 `;
 
 export const GenresList = styled.ul`
