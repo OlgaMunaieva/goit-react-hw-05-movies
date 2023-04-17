@@ -4,6 +4,7 @@ import { TrendMovieItem } from 'pages/home/Home.styled';
 import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import fetchSearch from 'services/fetchSearch';
+import { SearchForm, SearchInput, SubmitButton } from './Movies.styled';
 const { Link, useSearchParams, useLocation } = require('react-router-dom');
 
 const Movies = () => {
@@ -56,8 +57,8 @@ const Movies = () => {
   return (
     <>
       {error && <Text>{error} There are not movies</Text>}
-      <form onSubmit={handleOnSubmit}>
-        <input
+      <SearchForm onSubmit={handleOnSubmit}>
+        <SearchInput
           onChange={handleChange}
           name="search"
           value={queryOnChange}
@@ -66,10 +67,11 @@ const Movies = () => {
           autoFocus
           placeholder="Search movies"
         />
-        <button type="submit">
+        <SubmitButton type="submit">
+          Search
           <FiSearch />
-        </button>
-      </form>
+        </SubmitButton>
+      </SearchForm>
       {isLoading && <Loader />}
       <ul>
         {movies.map(({ id, title }) => (
