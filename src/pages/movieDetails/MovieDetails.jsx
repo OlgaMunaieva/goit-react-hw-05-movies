@@ -3,7 +3,7 @@ import { Text } from 'components/text/Text.components';
 import { Suspense, useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import fetchMovie from 'services/fetchMovie';
+import { fetchMovie } from 'services/fetchAPI';
 import {
   GenresList,
   LinkButton,

@@ -2,7 +2,7 @@ import Loader from 'components/loader/Loader';
 import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import fetchTrendMovies from 'services/fetchTrends';
+import { fetchTrendMovies } from 'services/fetchAPI';
 import MoviesList from 'components/moviesList/MoviesList';
 
 const Home = () => {

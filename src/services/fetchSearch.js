@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_KEY, API_PATH } from './settings';
+import { API_KEY, API_PATH } from './fetchAPI';
 
 const LANGUAGE = 'en-US';
 

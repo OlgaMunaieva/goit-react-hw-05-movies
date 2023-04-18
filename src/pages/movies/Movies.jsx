@@ -1,7 +1,7 @@
 import Loader from 'components/loader/Loader';
 import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
-import fetchSearch from 'services/fetchSearch';
+import { fetchSearch } from 'services/fetchAPI';
 import MoviesList from 'components/moviesList/MoviesList';
 import SearchFormSubmit from 'components/searchForm/SearchFormSubmit';
 const { useSearchParams, useLocation } = require('react-router-dom');

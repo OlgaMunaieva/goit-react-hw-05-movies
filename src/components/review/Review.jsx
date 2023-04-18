@@ -2,7 +2,7 @@ import Loader from 'components/loader/Loader';
 import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import fetchReview from 'services/fetchReview';
+import { fetchReview } from 'services/fetchAPI';
 
 const Review = () => {
   const { movieId } = useParams();

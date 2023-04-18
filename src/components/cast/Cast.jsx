@@ -2,7 +2,7 @@ import Loader from 'components/loader/Loader';
 import { Text } from 'components/text/Text.components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import fetchCast from 'services/fetchCast';
+import { fetchCast } from 'services/fetchAPI';
 import { CastItem, CastList } from './Cast.styled';
 import { FaPortrait } from 'react-icons/fa';
 
@@ -39,7 +39,6 @@ const Cast = () => {
       {error && <Text>{error} There are not movies</Text>}
       <CastList>
         {cast.map(({ id, name, character, profile_path }) => {
-          console.log(`https://image.tmdb.org/t/p/w200/${profile_path}`);
           return (
             <CastItem key={id}>
               {profile_path ? (
