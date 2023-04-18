@@ -1,6 +1,7 @@
 import { FiSearch } from 'react-icons/fi';
 import { SearchForm, SearchInput, SubmitButton } from './SearchForm.styled';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const SearchFormSubmit = ({ onSubmit, query }) => {
   const [queryOnChange, setQueryOnChange] = useState(query);
@@ -37,6 +38,11 @@ const SearchFormSubmit = ({ onSubmit, query }) => {
       </SubmitButton>
     </SearchForm>
   );
+};
+
+SearchFormSubmit.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
 };
 
 export default SearchFormSubmit;
