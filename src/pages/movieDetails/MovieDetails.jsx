@@ -13,6 +13,7 @@ import {
   MovieMoreInformation,
 } from './MovieDetails.styled';
 import { TiArrowBackOutline } from 'react-icons/ti';
+import { GiTargetPoster } from 'react-icons/gi';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -63,11 +64,19 @@ const MovieDetails = () => {
       {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
       <MovieInformation>
-        <MovieImg
-          src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
-          alt={original_title}
-          width="300"
-        />
+        {poster_path ? (
+          <MovieImg
+            src={`https://image.tmdb.org/t/p/w300/${poster_path}`}
+            alt={original_title}
+            width="300"
+          />
+        ) : (
+          <GiTargetPoster
+            style={{ display: 'block', width: '300px' }}
+            color="rgb(60 80 60 )"
+            size={500}
+          />
+        )}
         <MovieInformationText>
           <h1>
             {original_title} ({year})

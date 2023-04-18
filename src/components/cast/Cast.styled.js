@@ -12,4 +12,5 @@ export const CastList = styled.ul`
 
 export const CastItem = styled.li`
   width: 200px;
+  color: rgb(60 80 60);
 `;

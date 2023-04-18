@@ -3,9 +3,7 @@ import Layout from './layout/Layout';
 import { lazy } from 'react';
 
 const Home = lazy(() => import('../pages/home/Home'));
-const MovieDetails = lazy(() =>
-  import('../components/movieDetails/MovieDetails')
-);
+const MovieDetails = lazy(() => import('../pages/movieDetails/MovieDetails'));
 const Movies = lazy(() => import('../pages/movies/Movies'));
 const Cast = lazy(() => import('../components/cast/Cast'));
 const Review = lazy(() => import('../components/review/Review'));
