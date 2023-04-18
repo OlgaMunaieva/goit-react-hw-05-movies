@@ -1,7 +1,6 @@
 import Loader from 'components/loader/Loader';
-import { Text } from 'components/text/Text.components';
+import { Text } from 'components/error/Error.components';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { fetchTrendMovies } from 'services/fetchAPI';
 import MoviesList from 'components/moviesList/MoviesList';
 
@@ -9,8 +8,6 @@ const Home = () => {
   const [trendMovies, setTrendMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-
-  const location = useLocation();
 
   useEffect(() => {
     async function uploadTrends() {
@@ -37,7 +34,7 @@ const Home = () => {
       <h1>Trending today</h1>
       {isLoading && <Loader />}
       {error && <Text>{error} There are not movies</Text>}
-      <MoviesList movies={trendMovies} location={location} />
+      <MoviesList movies={trendMovies} />
     </>
   );
 };

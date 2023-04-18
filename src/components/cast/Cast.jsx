@@ -1,5 +1,5 @@
 import Loader from 'components/loader/Loader';
-import { Text } from 'components/text/Text.components';
+import { Text } from 'components/error/Error.components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCast } from 'services/fetchAPI';
@@ -13,25 +13,23 @@ const Cast = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    async function uploadCast(movieId) {
+      setIsLoading(true);
+      try {
+        const { cast } = await fetchCast(movieId);
+        if (!cast.length) {
+          throw new Error('No data');
+        } else {
+          setCast(cast);
+        }
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
     uploadCast(movieId);
   }, [movieId]);
-
-  async function uploadCast(movieId) {
-    setIsLoading(true);
-    try {
-      const credits = await fetchCast(movieId);
-      const cast = credits.cast;
-      if (!cast) {
-        throw new Error('No data');
-      } else {
-        setCast(cast);
-      }
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }
 
   return (
     <>

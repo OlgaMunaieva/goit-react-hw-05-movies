@@ -1,5 +1,5 @@
 import Loader from 'components/loader/Loader';
-import { Text } from 'components/text/Text.components';
+import { Text } from 'components/error/Error.components';
 import { Suspense, useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
@@ -25,24 +25,23 @@ const MovieDetails = () => {
   const backLinkLocation = useRef(location.state?.from ?? `/movies`);
 
   useEffect(() => {
+    async function uploadMovie(movieId) {
+      setIsLoading(true);
+      try {
+        const movie = await fetchMovie(movieId);
+        if (!movie) {
+          throw new Error('No data');
+        } else {
+          setMovie(movie);
+        }
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
     uploadMovie(movieId);
   }, [movieId]);
-
-  async function uploadMovie(movieId) {
-    setIsLoading(true);
-    try {
-      const movie = await fetchMovie(movieId);
-      if (!movie) {
-        throw new Error('No data');
-      } else {
-        setMovie(movie);
-      }
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }
 
   const {
     original_title,

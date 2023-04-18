@@ -7,6 +7,10 @@ const TIME_WINDOW = 'week';
 const LANGUAGE = 'en-US';
 
 //!-----------------------------------------------------------------
+/**
+ * trending movie information query function
+ * @returns Object with trending movies information or error status
+ */
 export async function fetchTrendMovies() {
   const response = await axios.get(
     `${API_PATH}/trending/${MEDIA_TYPE}/${TIME_WINDOW}?api_key=${API_KEY}`
@@ -17,6 +21,11 @@ export async function fetchTrendMovies() {
   return response.data;
 }
 //!-----------------------------------------------------------------
+/**
+ * the function of requesting information on films by the search word
+ * @param {*string} searchQuery
+ * @returns Object with information about the requested movies or error status
+ */
 export async function fetchSearch(searchQuery) {
   const response = await axios.get(
     `${API_PATH}/search/movie?api_key=${API_KEY}&language=${LANGUAGE}&query=${searchQuery}&page=1&include_adult=false`
