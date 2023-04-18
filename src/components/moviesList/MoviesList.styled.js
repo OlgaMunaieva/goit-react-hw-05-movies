@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TrendMovieItem = styled.li`
+export const MovieItem = styled.li`
   line-height: 1.5;
   /* list-style-type: none; */
   & a {
