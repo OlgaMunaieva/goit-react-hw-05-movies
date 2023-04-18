@@ -21,10 +21,3 @@ export const Nav = styled.nav`
     color: red;
   }
 `;
-
-// export const NavLink = styled.NavLink`
-//   :hover {
-//     background-color: aliceblue;
-//     color: red;
-//   }
-// `;
